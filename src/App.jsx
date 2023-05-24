@@ -16,6 +16,14 @@ function App() {
     }));
   };
 
+  const handleReset = () => {
+    setState({
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    });
+  };
+
   const countTotalFeedback = () => {
     const { good, neutral, bad } = state;
     return good + neutral + bad;
@@ -33,7 +41,7 @@ function App() {
   return (
     <>
       <div>
-        <a>
+        <a onClick={handleReset}>
           <img src={logo} className="logo" alt="feedback" />
         </a>
       </div>
