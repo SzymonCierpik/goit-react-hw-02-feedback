@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import logo from "./picture/logo.png";
+import Header from "./components/Header";
+import FeedbackButtons from "./components/FeedbackButtons";
+import Statistics from "./components/Statistics";
 import "./App.css";
 
 function App() {
@@ -33,32 +35,21 @@ function App() {
     const { good } = state;
     const total = countTotalFeedback();
     if (total === 0) {
-      return 0;
+      return "No feedback";
     }
-    return Math.round((good / total) * 100);
+    return Math.round((good / total) * 100) + "%";
   };
 
   return (
     <>
-      <div>
-        <a onClick={handleReset}>
-          <img src={logo} className="logo" alt="feedback" />
-        </a>
-      </div>
+      <Header handleReset={handleReset} />
       <h1>Please leave feedback</h1>
-      <div className="card">
-        <button onClick={() => handleFeedback("good")}>GOOD</button>
-        <button onClick={() => handleFeedback("neutral")}>NEUTRAL</button>
-        <button onClick={() => handleFeedback("bad")}>BAD</button>
-      </div>
-      <h2>S T A T I S T I C</h2>
-      <p className="read-the-docs">good: {state.good}</p>
-      <p className="read-the-docs">neutral: {state.neutral}</p>
-      <p className="read-the-docs">bad: {state.bad}</p>
-      <p className="read-the-docs">Total feedback: {countTotalFeedback()}</p>
-      <p className="read-the-docs">
-        Positive feedback percentage: {countPositiveFeedbackPercentage()}%
-      </p>
+      <FeedbackButtons handleFeedback={handleFeedback} />
+      <Statistics
+        state={state}
+        countTotalFeedback={countTotalFeedback}
+        countPositiveFeedbackPercentage={countPositiveFeedbackPercentage}
+      />
     </>
   );
 }
